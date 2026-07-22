@@ -1,5 +1,4 @@
 # ubuntuをカスタマイズしたものを利用する。
-# bindが初期インストールされたDockerイメージでは、shやbashなどのシェルが使えず学習しづらいため、ubuntuベースで構築することにした。
 FROM ubuntu:26.04
 
 # digコマンドを使うためdnsutilsをインストール

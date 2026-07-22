@@ -9,4 +9,5 @@ RUN apt-get install -y openssh-client
 COPY ./ssh-key-pair /root/.ssh
 # [  END] sshログイン用の、rootの公開鍵&秘密鍵の準備
 
+# コンテナを起動させ続ける。
 CMD ["sleep", "infinity"]

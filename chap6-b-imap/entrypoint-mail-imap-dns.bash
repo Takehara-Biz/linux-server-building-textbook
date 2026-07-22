@@ -1,12 +1,15 @@
 #!/bin/bash
 
-echo "[BEGIN] entrypoint.bash"
+echo "[BEGIN] entrypoint-mail-imap-dns.bash"
 
 # start DNS server
 /usr/sbin/named -c /etc/bind/named.conf -u bind
+
+# start IMAP server
+service dovecot start
 
 # start mail server
 # 最後のコマンドをフォアグラウンド実行させることで、コンテナの終了を防ぐ。
 postfix start-fg
 
-echo "[  END] entrypoint.bash"
+echo "[  END] entrypoint-mail-imap-dns.bash"

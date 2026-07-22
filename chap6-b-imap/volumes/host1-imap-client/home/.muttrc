@@ -1,0 +1,24 @@
+# ユーザー情報
+set realname = "realnameABC"
+set from = "username@yourdomain.com"
+set use_from = yes
+
+# IMAPサーバー設定（非暗号化ポート143）
+set imap_user = "user1"
+set imap_pass = "user1"
+set folder = "imap://host1.example1.test:143/"
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set record = "+Sent"
+
+# TLS/SSLを明示的に無効化
+set ssl_starttls = no
+set ssl_force_tls = no
+
+# キャッシュ設定（動作高速化のため）
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+
+# 文字コード設定
+set charset = "utf-8"
+set send_charset = "utf-8"

@@ -3,7 +3,7 @@ name: dns-and-mail-servers
 services:
   host0:
     build:
-      dockerfile: "Dockerfile-dns"
+      dockerfile: "Dockerfile-dns-only"
     container_name: host0.test
     restart: always
     networks:
@@ -14,7 +14,7 @@ services:
       - ./volumes/host0/etc/bind:/etc/bind
   host1:
     build:
-      dockerfile: "Dockerfile-dns-and-mail"
+      dockerfile: "Dockerfile-mail-imap-dns"
       args:
         POSTFIX_MAILNAME: "example1.test"
     container_name: host1.example1.test
@@ -31,7 +31,7 @@ services:
       - ./volumes/host1/etc/postfix/main.cf:/etc/postfix/main.cf
   host2:
     build:
-      dockerfile: "Dockerfile-dns-and-mail"
+      dockerfile: "Dockerfile-mail-dns"
       args:
         POSTFIX_MAILNAME: "example2.test"
     container_name: host2.example2.test
@@ -43,6 +43,16 @@ services:
       - ./volumes/host2/etc/resolv.conf:/etc/resolv.conf
       - ./volumes/host2/etc/bind:/etc/bind
       - ./volumes/host2/etc/postfix/main.cf:/etc/postfix/main.cf
+  host1-imap-client: #imapクライアントとしてhost1に接続するコンテナ
+    build:
+      dockerfile: "Dockerfile-imap-client"
+    tty: true # コンテナを起動させっぱなしにする
+    container_name: host1-imap-client
+    networks:
+      bind-network:
+        ipv4_address: 192.168.1.14
+    volumes:
+      - ./volumes/host1-imap-client/home/.muttrc:/root/.muttrc #.muttrcを、rootのホームディレクトリ/rootの配下に置く必要がある。
 networks:
   bind-network:
     ipam:

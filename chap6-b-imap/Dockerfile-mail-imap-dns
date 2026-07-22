@@ -31,6 +31,6 @@ RUN apt install -y postfix dovecot-pop3d dovecot-imapd
 RUN apt install -y mailutils
 # [  END] 先行インストール
 
-COPY entrypoint.bash /entrypoint.bash
-RUN chmod +x /entrypoint.bash
-ENTRYPOINT ["/entrypoint.bash"]
+COPY entrypoint-mail-imap-dns.bash /entrypoint-mail-imap-dns.bash
+RUN chmod +x /entrypoint-mail-imap-dns.bash
+ENTRYPOINT ["/entrypoint-mail-imap-dns.bash"]

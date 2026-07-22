@@ -1,0 +1,25 @@
+name: ssh-server-and-client
+
+services:
+  ssh-client:
+    build:
+      dockerfile: "Dockerfile-client"
+    container_name: ssh-client
+    restart: always
+    networks:
+      ssh-network:
+        ipv4_address: 192.168.1.12
+  ssh-server:
+    build:
+      dockerfile: "Dockerfile-server"
+    container_name: ssh-server
+    restart: always
+    networks:
+      ssh-network:
+        ipv4_address: 192.168.1.11
+networks:
+  ssh-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24

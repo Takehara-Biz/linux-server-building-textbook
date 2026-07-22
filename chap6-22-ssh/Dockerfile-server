@@ -1,0 +1,18 @@
+FROM ubuntu:26.04
+
+# digコマンドを使うためdnsutilsをインストール
+# pingコマンドを使うためiputils-pingをインストール
+RUN apt-get update && apt-get install -y dnsutils iputils-ping
+RUN apt-get install -y openssh-server
+
+# デフォルトユーザを登録。-mでホームディレクトリを作成する。
+RUN useradd -m user1
+RUN useradd -m user2
+# パスワードを指定。パスワードが見えているので指定方法としては良くないが、これは実験用環境なのでこれで指定している。
+RUN echo "user1" | passwd --stdin user1
+# user2はパスワードでログインさせないのでパスワード設定しない。
+
+# ssh-clientのrootの公開鍵を、user2のauthorized_keysに登録。
+COPY ./ssh-key-pair/id_ed25519.pub /home/user2/.ssh/authorized_keys
+
+CMD ["/usr/sbin/sshd", "-D"]

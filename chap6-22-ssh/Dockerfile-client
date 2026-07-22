@@ -1,0 +1,12 @@
+FROM ubuntu:26.04
+
+# digコマンドを使うためdnsutilsをインストール
+# pingコマンドを使うためiputils-pingをインストール
+RUN apt-get update && apt-get install -y dnsutils iputils-ping
+RUN apt-get install -y openssh-client
+
+# [BEGIN] sshログイン用の、rootの公開鍵&秘密鍵の準備
+COPY ./ssh-key-pair /root/.ssh
+# [  END] sshログイン用の、rootの公開鍵&秘密鍵の準備
+
+CMD ["sleep", "infinity"]

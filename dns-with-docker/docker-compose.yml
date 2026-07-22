@@ -1,0 +1,39 @@
+name: bind-servers
+
+services:
+  host0:
+    build: .
+    container_name: host0.test
+    restart: always
+    networks:
+      bind-network:
+        ipv4_address: 192.168.1.11
+    volumes:
+      - ./volumes/host0/etc/resolv.conf:/etc/resolv.conf
+      - ./volumes/host0/etc/bind:/etc/bind
+  host1:
+    build: .
+    container_name: host1.example1.test
+    restart: always
+    networks:
+      bind-network:
+        ipv4_address: 192.168.1.12
+    volumes:
+      - ./volumes/host1/etc/resolv.conf:/etc/resolv.conf
+      - ./volumes/host1/etc/bind:/etc/bind
+  host2:
+    build: .
+    container_name: host2.example2.test
+    restart: always
+    networks:
+      bind-network:
+        ipv4_address: 192.168.1.13
+    volumes:
+      - ./volumes/host2/etc/resolv.conf:/etc/resolv.conf
+      - ./volumes/host2/etc/bind:/etc/bind
+networks:
+  bind-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
